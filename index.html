@@ -12,7 +12,7 @@
 .desktop:before{content:"";position:absolute;width:70vw;height:70vw;max-width:900px;max-height:900px;border-radius:50%;border:1px solid rgba(160,205,255,.12);left:40%;top:5%;box-shadow:0 0 100px rgba(65,150,255,.16),inset 0 0 90px rgba(65,150,255,.14);pointer-events:none}
 .icons{position:absolute;top:18px;left:16px;display:grid;gap:18px}
 .desk-icon{width:82px;padding:8px 4px;border:1px solid transparent;border-radius:7px;text-align:center;background:transparent;color:white;cursor:pointer;font:inherit;font-size:12px;text-shadow:0 1px 4px #000}
-.desk-icon:hover,.desk-icon:focus{background:#ffffff20;border-color:#ffffff40;outline:0}.glyph{display:block;font-size:31px;margin-bottom:5px}
+.desk-icon:hover,.desk-icon:focus{background:#ffffff20;border-color:#ffffff40;outline:0}.glyph{display:block;font-size:31px;margin-bottom:5px}.glyph-img{display:block;width:42px;height:42px;object-fit:cover;border-radius:8px;margin:0 auto 5px}.app-icon{display:block;width:38px;height:38px;object-fit:cover;border-radius:8px;margin:0 auto 7px}
 .taskbar{position:absolute;bottom:0;left:0;right:0;height:58px;background:rgba(12,21,40,.72);backdrop-filter:blur(24px);border-top:1px solid #ffffff20;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;z-index:20}
 .taskbtn{border:0;color:white;background:transparent;border-radius:8px;min-width:42px;height:42px;font:inherit;font-size:20px;cursor:pointer}.taskbtn:hover,.taskbtn.active{background:#ffffff20}.taskbtn.start{font-size:23px;color:#8fc5ff}
 .tray{position:absolute;right:15px;display:flex;gap:12px;align-items:center;font-size:12px;color:#fff}.clock{text-align:right;line-height:1.4}
@@ -34,7 +34,7 @@
     <button class="desk-icon" data-open="files"><span class="glyph">📁</span>File Explorer</button>
     <button class="desk-icon" data-open="settings"><span class="glyph">⚙️</span>Settings</button>
     <button class="desk-icon" data-open="about"><span class="glyph">ℹ️</span>About</button>
-    <button class="desk-icon" data-open="minecraft"><span class="glyph">🟩</span>Minecraft 26.3</button>
+    <button class="desk-icon" data-open="minecraft"><img class="glyph-img" src="minecraft-logo.jpg" alt=""><span>Minecraft 26.2</span></button>
   </div>
   <section class="window" id="window" role="dialog" aria-modal="false" aria-labelledby="win-title">
     <header class="titlebar"><span id="win-title">WINDOWS-11</span><button class="close" aria-label="Close window">×</button></header>
@@ -48,7 +48,7 @@
       <button class="app" data-open="files"><span>📁</span>File Explorer</button>
       <button class="app" data-open="settings"><span>⚙️</span>Settings</button>
       <button class="app" data-open="about"><span>ℹ️</span>About</button>
-      <button class="app" data-open="minecraft"><span>🟩</span>Minecraft 26.2</button>
+      <button class="app" data-open="minecraft"><img class="app-icon" src="minecraft-logo.jpg" alt="">Minecraft 26.2</button>
     </div>
     <div class="panel-head"><span>Recommended</span><span>More　›</span></div>
     <p style="color:#c4cde0;font-size:12px;margin:8px 2px">Your recent files and apps will appear here.</p>
@@ -68,7 +68,7 @@ connect:{title:'Connect to your Windows PC',html:'<h2>Cloud PC connection</h2><s
 files:{title:'File Explorer',html:'<h2>Quick access</h2><p>This is the starter File Explorer window. It does not access your Chromebook files yet.</p><div class="tile-row"><div class="tile">📂<b>Desktop</b><span>Coming soon</span></div><div class="tile">📄<b>Documents</b><span>Coming soon</span></div><div class="tile">⬇️<b>Downloads</b><span>Coming soon</span></div></div>'},
 settings:{title:'Settings',html:'<h2>Settings</h2><p>Personalize this web desktop. These settings are a preview and do not change ChromeOS.</p><div class="tile-row"><div class="tile">🎨<b>Personalization</b><span>Desktop theme</span></div><div class="tile">🖥️<b>System</b><span>Display and information</span></div><div class="tile">🔒<b>Privacy</b><span>Connection status</span></div></div>'},
 about:{title:'About WINDOWS-11',html:'<h2>WINDOWS-11 Web Desktop</h2><p>Project version 0.1 — first interface preview.</p><p>This is a browser-based desktop interface, not the Windows operating system. The real Windows session will require a separately hosted Windows machine and an authorized remote connection.</p><p>Built to run in a modern browser, including ChromeOS.</p>'},
-minecraft:{title:'Minecraft 26.2',html:'<h2>🟩 Eaglercraft 26.2</h2><p>Load your Eaglercraft HTML file to play inside this desktop window. The game file stays on your device; it is not uploaded to this website.</p><div class="tile-row"><div class="tile"><b>Version</b><span>26.2</span></div><div class="tile"><b>Runs in</b><span>Chrome</span></div><div class="tile"><b>Storage</b><span>Local browser session</span></div></div><p>Eaglercraft 26.2 loads automatically below. The game is hosted as a GitHub Release asset.</p><div id="eagler-stage" style="position:relative;width:100%;height:calc(100vh - 250px);min-height:300px;background:#000"><iframe id="eagler-frame" title="Eaglercraft 26.2" src="https://github.com/Kyntric-GIT/WINDOWS-11/releases/download/eaglercraft-26.2/eaglercraft-26.2-fe8f1237.html" sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-pointer-lock" style="width:100%;height:100%;border:0;background:#000" allow="fullscreen; gamepad; autoplay; pointer-lock" allowfullscreen></iframe></div>'}
+minecraft:{title:'Minecraft 26.2',html:'<h2><img src="minecraft-logo.jpg" alt="Minecraft" style="width:52px;height:52px;object-fit:cover;border-radius:8px;vertical-align:middle;margin-right:10px">Eaglercraft 26.2</h2><p>The game is being prepared for in-app hosting. The GitHub Release download link has been removed so clicking this app will not download the HTML file.</p>'}
 };
 function openWindow(id){const page=pages[id];if(!page)return;title.textContent=page.title;body.innerHTML=page.html;win.classList.add('open');menu.classList.remove('open');}
 document.querySelectorAll('[data-open]').forEach(el=>el.addEventListener('click',()=>openWindow(el.dataset.open)));
