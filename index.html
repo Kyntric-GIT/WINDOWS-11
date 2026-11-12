@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101a35">
+<title>WINDOWS-11 — Web Desktop</title>
+<style>
+:root{color-scheme:dark;--glass:rgba(22,34,61,.78);--line:rgba(255,255,255,.15);--text:#f7f9ff;--muted:#b9c5dc;--blue:#5b9cff}
+*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;color:var(--text);min-height:100vh;overflow:hidden;background:#101a35}
+.desktop{position:relative;min-height:100vh;background:radial-gradient(ellipse at 72% 46%,rgba(40,117,211,.95),transparent 34%),radial-gradient(ellipse at 56% 55%,rgba(47,88,194,.85),transparent 30%),linear-gradient(135deg,#07152d,#142c5b 55%,#08162f);overflow:hidden}
+.desktop:before{content:"";position:absolute;width:70vw;height:70vw;max-width:900px;max-height:900px;border-radius:50%;border:1px solid rgba(160,205,255,.12);left:40%;top:5%;box-shadow:0 0 100px rgba(65,150,255,.16),inset 0 0 90px rgba(65,150,255,.14);pointer-events:none}
+.icons{position:absolute;top:18px;left:16px;display:grid;gap:18px}
+.desk-icon{width:82px;padding:8px 4px;border:1px solid transparent;border-radius:7px;text-align:center;background:transparent;color:white;cursor:pointer;font:inherit;font-size:12px;text-shadow:0 1px 4px #000}
+.desk-icon:hover,.desk-icon:focus{background:#ffffff20;border-color:#ffffff40;outline:0}.glyph{display:block;font-size:31px;margin-bottom:5px}
+.taskbar{position:absolute;bottom:0;left:0;right:0;height:58px;background:rgba(12,21,40,.72);backdrop-filter:blur(24px);border-top:1px solid #ffffff20;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;z-index:20}
+.taskbtn{border:0;color:white;background:transparent;border-radius:8px;min-width:42px;height:42px;font:inherit;font-size:20px;cursor:pointer}.taskbtn:hover,.taskbtn.active{background:#ffffff20}.taskbtn.start{font-size:23px;color:#8fc5ff}
+.tray{position:absolute;right:15px;display:flex;gap:12px;align-items:center;font-size:12px;color:#fff}.clock{text-align:right;line-height:1.4}
+.panel{position:absolute;z-index:15;background:rgba(24,36,61,.91);backdrop-filter:blur(28px);border:1px solid var(--line);box-shadow:0 20px 70px #0008;border-radius:12px}
+.start-menu{width:min(560px,calc(100vw - 24px));left:50%;transform:translateX(-50%);bottom:70px;padding:22px;display:none}.start-menu.open{display:block}
+.search{width:100%;border:1px solid #ffffff30;border-radius:7px;background:#ffffff12;color:white;padding:12px 14px;font:inherit;outline:none}.search:focus{border-color:var(--blue)}
+.panel-head{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 12px;font-size:13px;font-weight:600}.app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.app{border:0;border-radius:8px;background:transparent;color:white;padding:13px 4px;cursor:pointer;font:inherit;font-size:12px}.app:hover{background:#ffffff18}.app span{display:block;font-size:27px;margin-bottom:7px}
+.window{display:none;position:absolute;z-index:10;left:50%;top:50%;transform:translate(-50%,-50%);width:min(700px,calc(100vw - 28px));height:min(440px,calc(100vh - 100px));overflow:hidden;background:rgba(245,248,255,.96);color:#172238;border-radius:10px;box-shadow:0 24px 90px #0008}
+.window.open{display:flex;flex-direction:column}.titlebar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:#e9eef8;font-size:13px;font-weight:600}.close{border:0;background:transparent;font-size:20px;width:36px;height:34px;border-radius:5px;cursor:pointer;color:#26334a}.close:hover{background:#e45b5b;color:white}.window-body{padding:24px;overflow:auto;flex:1}.window-body h2{font-weight:600;margin:0 0 12px}.window-body p{color:#526079;line-height:1.55}.tile-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:12px;margin-top:22px}.tile{padding:16px;border:1px solid #dbe2ee;border-radius:9px;background:#fff}.tile b{display:block;margin-bottom:6px}.status{display:inline-flex;align-items:center;gap:7px;border-radius:20px;background:#fff2d5;color:#815500;padding:6px 10px;font-size:12px}.dot{width:7px;height:7px;border-radius:50%;background:#d79b24}
+.connect-button{border:0;border-radius:7px;background:#1769d2;color:white;padding:11px 17px;font:inherit;cursor:pointer}.connect-button:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:560px){.tray{font-size:10px;right:8px}.app-grid{grid-template-columns:repeat(3,1fr)}.taskbar{justify-content:flex-start}.taskbtn:nth-of-type(n+4){display:none}.start-menu{padding:16px}.icons{gap:10px}}
+</style>
+</head>
+<body>
+<main class="desktop" aria-label="WINDOWS-11 web desktop">
+  <div class="icons">
+    <button class="desk-icon" data-open="connect"><span class="glyph">🖥️</span>This PC</button>
+    <button class="desk-icon" data-open="files"><span class="glyph">📁</span>File Explorer</button>
+    <button class="desk-icon" data-open="settings"><span class="glyph">⚙️</span>Settings</button>
+    <button class="desk-icon" data-open="about"><span class="glyph">ℹ️</span>About</button>
+  </div>
+  <section class="window" id="window" role="dialog" aria-modal="false" aria-labelledby="win-title">
+    <header class="titlebar"><span id="win-title">WINDOWS-11</span><button class="close" aria-label="Close window">×</button></header>
+    <div class="window-body" id="window-body"></div>
+  </section>
+  <section class="panel start-menu" id="start-menu">
+    <input class="search" id="app-search" placeholder="Search for apps, settings, and documents" aria-label="Search apps">
+    <div class="panel-head"><span>Pinned</span><span>All apps　›</span></div>
+    <div class="app-grid">
+      <button class="app" data-open="connect"><span>🖥️</span>Connect</button>
+      <button class="app" data-open="files"><span>📁</span>File Explorer</button>
+      <button class="app" data-open="settings"><span>⚙️</span>Settings</button>
+      <button class="app" data-open="about"><span>ℹ️</span>About</button>
+    </div>
+    <div class="panel-head"><span>Recommended</span><span>More　›</span></div>
+    <p style="color:#c4cde0;font-size:12px;margin:8px 2px">Your recent files and apps will appear here.</p>
+  </section>
+  <footer class="taskbar">
+    <button class="taskbtn start" id="start" aria-label="Start menu">⊞</button>
+    <button class="taskbtn" data-open="files" aria-label="File Explorer">📁</button>
+    <button class="taskbtn" data-open="connect" aria-label="Connect">🖥️</button>
+    <button class="taskbtn" data-open="settings" aria-label="Settings">⚙️</button>
+    <div class="tray"><span>◖◗</span><span>⌁</span><div class="clock"><div id="time"></div><div id="date"></div></div></div>
+  </footer>
+</main>
+<script>
+const win=document.getElementById('window'),body=document.getElementById('window-body'),title=document.getElementById('win-title'),menu=document.getElementById('start-menu');
+const pages={
+connect:{title:'Connect to your Windows PC',html:'<h2>Cloud PC connection</h2><span class="status"><i class="dot"></i> Not connected</span><p>This website is ready for a remote Windows connection, but a cloud Windows machine has not been configured yet.</p><div class="tile-row"><div class="tile"><b>1. Cloud machine</b><span>Not configured</span></div><div class="tile"><b>2. Secure connection</b><span>Not configured</span></div><div class="tile"><b>3. Browser session</b><span>Waiting</span></div></div><p>When a legitimate Windows cloud PC is available, we can connect it here. No password or connection details are requested on this demo screen.</p><button class="connect-button" disabled>Connect (not configured)</button>'},
+files:{title:'File Explorer',html:'<h2>Quick access</h2><p>This is the starter File Explorer window. It does not access your Chromebook files yet.</p><div class="tile-row"><div class="tile">📂<b>Desktop</b><span>Coming soon</span></div><div class="tile">📄<b>Documents</b><span>Coming soon</span></div><div class="tile">⬇️<b>Downloads</b><span>Coming soon</span></div></div>'},
+settings:{title:'Settings',html:'<h2>Settings</h2><p>Personalize this web desktop. These settings are a preview and do not change ChromeOS.</p><div class="tile-row"><div class="tile">🎨<b>Personalization</b><span>Desktop theme</span></div><div class="tile">🖥️<b>System</b><span>Display and information</span></div><div class="tile">🔒<b>Privacy</b><span>Connection status</span></div></div>'},
+about:{title:'About WINDOWS-11',html:'<h2>WINDOWS-11 Web Desktop</h2><p>Project version 0.1 — first interface preview.</p><p>This is a browser-based desktop interface, not the Windows operating system. The real Windows session will require a separately hosted Windows machine and an authorized remote connection.</p><p>Built to run in a modern browser, including ChromeOS.</p>'}
+};
+function openWindow(id){const page=pages[id];if(!page)return;title.textContent=page.title;body.innerHTML=page.html;win.classList.add('open');menu.classList.remove('open')}
+document.querySelectorAll('[data-open]').forEach(el=>el.addEventListener('click',()=>openWindow(el.dataset.open)));
+document.querySelector('.close').addEventListener('click',()=>win.classList.remove('open'));
+document.getElementById('start').addEventListener('click',()=>menu.classList.toggle('open'));
+document.addEventListener('click',e=>{if(!menu.contains(e.target)&&!e.target.closest('#start')&&!e.target.closest('[data-open]'))menu.classList.remove('open')});
+document.getElementById('app-search').addEventListener('input',e=>{const q=e.target.value.toLowerCase();document.querySelectorAll('#start-menu [data-open]').forEach(b=>b.style.display=b.textContent.toLowerCase().includes(q)?'':'none')});
+function tick(){const d=new Date();document.getElementById('time').textContent=d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});document.getElementById('date').textContent=d.toLocaleDateString([],{month:'numeric',day:'numeric',year:'numeric'})}tick();setInterval(tick,15000);
+</script>
+</body>
+</html>
