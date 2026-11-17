@@ -1,30 +1,34 @@
-# WINDOWS-11
+# WINDOWS-11 Web Desktop
 
-A browser-based desktop interface starter for the WINDOWS-11 project.
+A Windows 11-inspired desktop simulation that runs in a modern browser.
 
-## Current status
+## Included
 
-This is **not Windows 11 itself**. It is a web desktop interface that runs in a modern browser. A real Windows desktop requires a separately hosted Windows machine and an authorized remote-desktop connection.
+- Draggable application windows with maximize, minimize, close, resize, and edge snapping (left/right halves and four corner layouts).
+- Taskbar shows open apps; single-click taskbar icons to open or restore them.
+- Right-click apps to pin/unpin them; drag pinned taskbar icons to reorder.
+- Start menu and desktop app shortcuts (double-click desktop shortcuts).
+- App Store with installable Calculator, Notepad, Paint, Media Player, Terminal, and Game Library.
+- Settings for built-in/custom wallpapers, accent color, taskbar alignment, Rammerhead instance URL, and hiding non-default apps.
+- Virtual File Explorer with editable files and per-imported-game game.json metadata.
+- Eaglercraft 26.2 retained as a default, preinstalled app using the existing Worker URL.
 
-## Preview
+## Rammerhead
 
-- Desktop wallpaper and icons
-- Start menu with app search
-- Taskbar clock and date
-- Demo windows for Connect, File Explorer, Settings, and About
-- Responsive layout for Chromebook and desktop browsers
+Open Settings and paste the URL of a Rammerhead instance you operate or are authorized to use. The Browser app opens that instance in a new tab. Enter the destination address inside Rammerhead itself; this project does not host or create a proxy instance.
 
-## Run
+## Eaglercraft
 
-Open `index.html` in a browser, or publish the repository with GitHub Pages.
+The Eaglercraft default app continues to load from:
 
-## Cloud connection status
+https://sparkling-dream-5f35.kyntric-git.workers.dev/game
 
-The Connect screen is intentionally marked **Not connected** until a legitimate cloud Windows machine and secure connection method are configured. Do not put passwords, access tokens, or private connection details in this repository.
+The existing eaglercraft-worker.js remains unchanged.
 
-## Next milestones
+## Virtual file manager limitation
 
-1. Publish the static website with GitHub Pages.
-2. Improve the desktop interactions and app windows.
-3. Evaluate cloud-hosted Windows options and their real costs, licensing, and usage limits.
-4. Add a secure connection flow only after a suitable Windows host is available.
+The File Explorer stores editable project metadata in the browser's local storage. It cannot directly edit a remote GitHub repository, a hosted game's server-side files, browser sandbox files, or a game's compiled save data. Imported games create a local Games/<game-id>/game.json entry.
+
+## Run / deploy
+
+Open index.html locally or enable GitHub Pages with GitHub Actions as the deployment source. The included workflow publishes the repository root.
